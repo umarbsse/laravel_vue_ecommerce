@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Role;
 use Hash;
 use Auth;
+use Validator;
 class Account extends Controller
 {
     //
@@ -19,5 +20,28 @@ class Account extends Controller
       $user->save();
       $admin = Role::where('slug','admin')->first();
       $user->roles()->attach($admin);
+    }
+    public function auth(Request $request)
+    {
+
+      //Credentail is correct
+      
+      ##$validated = $validator->safe();
+      ##$email = $validated['email'];
+      ##$password = $validated['password'];
+
+      ##echo $email." ".$password;
+
+      $credentials = $request->validate([
+        'email' => ['required', 'email', 'exists:users,email'],
+        'password' => ['required'],
+      ]);
+
+      if (Auth::attempt($credentials)) {
+          $request->session()->regenerate();
+          return redirect()->intended('dashboard');
+      }
+      return back()->withErrors([
+          'email' => 'Authentication failed.',])->onlyInput('email');
     }
 }

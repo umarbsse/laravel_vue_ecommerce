@@ -19,9 +19,16 @@ Route::get('/', function () {
    // return view('welcome');
     return view('admin/index');
 });
+Route::get('/signin', function () {
+   // return view('welcome');
+    return view('account/signin');
+});
+Route::post('/auth',[Account::class,'auth']);
 
 
-Route::get('/register_admin',[Account::class,'register_admin']);
+
+
+##Route::get('/register_admin',[Account::class,'register_admin']);
 
 
 
