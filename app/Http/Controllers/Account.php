@@ -24,14 +24,6 @@ class Account extends Controller
     public function auth(Request $request)
     {
 
-      //Credentail is correct
-      
-      ##$validated = $validator->safe();
-      ##$email = $validated['email'];
-      ##$password = $validated['password'];
-
-      ##echo $email." ".$password;
-
       $credentials = $request->validate([
         'email' => ['required', 'email', 'exists:users,email'],
         'password' => ['required'],
@@ -39,7 +31,7 @@ class Account extends Controller
 
       if (Auth::attempt($credentials)) {
           $request->session()->regenerate();
-          return redirect()->intended('dashboard');
+          return redirect()->intended('/dashboard');
       }
       return back()->withErrors([
           'email' => 'Authentication failed.',])->onlyInput('email');

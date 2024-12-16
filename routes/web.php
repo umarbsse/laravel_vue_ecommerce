@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Models\Role;
 use App\Http\Controllers\Account;
+use App\Http\Controllers\Dashboard;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +25,10 @@ Route::get('/signin', function () {
     return view('account/signin');
 });
 Route::post('/auth',[Account::class,'auth']);
+
+
+
+Route::get('/dashboard',[Dashboard::class,'index']);
 
 
 
