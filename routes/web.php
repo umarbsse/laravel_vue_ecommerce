@@ -16,10 +16,17 @@ use App\Http\Controllers\Dashboard;
 |
 */
 
+##Route::get('/', function () {
+##   // return view('welcome');
+##    return view('admin/index');
+##});
+
 Route::get('/', function () {
    // return view('welcome');
-    return view('admin/index');
+    return view('account/signin');
 });
+
+
 Route::get('/signin', function () {
    // return view('welcome');
     return view('account/signin');
@@ -28,18 +35,22 @@ Route::post('/auth',[Account::class,'auth']);
 
 
 
-Route::get('/dashboard',[Dashboard::class,'index']);
+Route::get('/logout',function(){
+   Auth::logout();
+   return redirect ('/signin');
+});
 
 
 
 
-##Route::get('/register_admin',[Account::class,'register_admin']);
 
 
 
-/*Route::get('/createRole', function () {
-   $role         =  new Role();
-   $role->name   =  'Customer';
-  $role->slug   =  'customer';
-  $role->save();
-});*/
+
+#Route::get('/dashboard',[Dashboard::class,'index']);
+
+
+
+
+Route::get('/register_admin',[Account::class,'register_admin']);
+Route::get('/register_customer',[Account::class,'register_customer']);
