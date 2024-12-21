@@ -33,6 +33,31 @@ class Account extends Controller
     }
     public function auth(Request $request)
     {
+      $validation = validator::make($request->all(),[
+        'email' => ['required', 'email', 'exists:users,email'],
+        'password' => ['required'],
+      ]);
+
+      if($validation->fails()){
+        #return response()->json(['status'=>401,'message'=>$validation->errors()->first()]);
+        return response()->json(['status'=>401,'message'=>'Invalid Credentials']);
+      }else{
+        $creds = array('email'=>$request->email,'password'=>$request->password);
+        if(Auth::attempt($creds,false)){
+          if(Auth::User()->hasRole('admin')){
+            return response()->json(['status'=>200,'message'=>'Admin User','url'=>'admin/dashboard']);
+          }else if(Auth::User()->hasRole('customer')){
+            return response()->json(['status'=>200,'message'=>'Customer User','url'=>'customer/dashboard']);
+          }else{
+            return response()->json(['status'=>401,'message'=>'Non User']);
+          }
+        }else{
+          return response()->json(['status'=>401 ,'message'=>'Invalid Credentials']);
+        }
+      }
+    }
+    public function auth_self_method(Request $request)
+    {
 
       $credentials = $request->validate([
         'email' => ['required', 'email', 'exists:users,email'],
@@ -44,9 +69,12 @@ class Account extends Controller
           return response()->json(['status'=>200,'message'=>'Admin User','url'=>'admin/dashboard'],200);
         }else if(Auth::User()->hasRole('customer')){
           return response()->json(['status'=>200,'message'=>'customer User'],200);
+        }else{
+          die("asdfasdf");
         }
+      }else{
+        return response()->json(['status'=>404,'message'=>'Invalid creds'],404);
       }
-      return response()->json(['status'=>404,'message'=>'Invalid creds'],404);
     }
     public function auth_with_redirect(Request $request)
     {
