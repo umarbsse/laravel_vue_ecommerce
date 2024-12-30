@@ -13,7 +13,7 @@
 	<!--navigation-->
 	<ul class="metismenu" id="menu">
 		<li>
-			<a href="javascript:;" class="has-arrow">
+			<a href="{{url('admin/dashboard')}}">
 				<div class="parent-icon"><i class='bx bx-home-alt'></i>
 				</div>
 				<div class="menu-title">Dashboard</div>
@@ -49,10 +49,26 @@
 		<li class="menu-label">Pages</li>
 		
 		<li>
-			<a href="user-profile.html">
+			<a href="{{url('admin/profile_settting')}}">
 				<div class="parent-icon"><i class="bx bx-user-circle"></i>
 				</div>
 				<div class="menu-title">User Profile</div>
+			</a>
+		</li>
+		
+		<li>
+			<a href="{{url('admin/change_pswd')}}">
+				<div class="parent-icon"><i class="bx bx-lock-alt"></i>
+				</div>
+				<div class="menu-title">Change Password</div>
+			</a>
+		</li>
+		
+		<li>
+			<a href="{{url('logout')}}">
+				<div class="parent-icon"><i class="bx bx-log-out-circle"></i>
+				</div>
+				<div class="menu-title">Logout</div>
 			</a>
 		</li>
 		

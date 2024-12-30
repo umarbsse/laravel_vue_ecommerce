@@ -23,7 +23,7 @@ use App\Http\Controllers\Dashboard;
 
 Route::get('/', function () {
    // return view('welcome');
-    return view('account/signin');
+    return redirect('admin/dashboard');
 });
 
 
