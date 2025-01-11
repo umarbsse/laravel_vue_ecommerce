@@ -17,6 +17,7 @@ Route::get('/dashboard', function () {
 ##    return view('admin/profile/setting');
 ##});
 Route::get('/profile_settting', [Profile::class,'profile_settting']);
+Route::post('/save_profile', [Profile::class,'store']);
 Route::get('/change_pswd', function () {
     return view('admin/profile/change_pswd.blade.php');
 });

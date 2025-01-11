@@ -15,3 +15,23 @@
 	<script>
 		new PerfectScrollbar(".app-container")
 	</script>
+	<script>
+		$(document).ready(function(){
+			$("#dynamic_form").on('submit',function(e){
+				e.preventDefault();
+				var form_data=new FormData(this);
+				var url = $(this).attr('action');
+				$.ajax({
+					type:'POST',
+					url:url,
+					data:form_data,
+					cache:false,
+					contentType:false,
+					processData:false,
+					success:function(response){
+						console.log(response);
+					}
+				});
+			});
+		});
+	</script>
